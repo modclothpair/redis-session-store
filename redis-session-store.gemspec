@@ -17,4 +17,5 @@ Gem::Specification.new do |gem|
   gem.version       = '0.1.7'
 
   gem.add_dependency "redis"
+  gem.add_dependency "rails", "~> 2.3.14"
 end
