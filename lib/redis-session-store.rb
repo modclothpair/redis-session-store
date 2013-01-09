@@ -54,6 +54,11 @@ class RedisSessionStore < ActionController::Session::AbstractStore
       return false
     end
 
+    def destroy_session(env, session_id, options)
+      options = { :renew => true }.update(options) unless options[:drop]
+      set_session(env, session_id, 0, options)
+    end
+
     def destroy(env)
       if env['rack.request.cookie_hash'] && env['rack.request.cookie_hash'][@key]
         @redis.del( prefixed(env['rack.request.cookie_hash'][@key]) )
