@@ -41,8 +41,7 @@ class RedisSessionStore < ActionDispatch::Session::AbstractStore
       [sid, session]
     end
 
-    def set_session(env, sid, session_data)
-      options = env['rack.session.options']
+    def set_session(env, sid, session_data, options)
       expiry  = options[:expire_after] || nil
       if expiry
         @redis.setex(prefixed(sid), expiry, Marshal.dump(session_data))
